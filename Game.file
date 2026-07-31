@@ -1,0 +1,38 @@
+let startX = 0;
+let startY = 0;
+
+canvas.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+}, { passive: true });
+
+canvas.addEventListener("touchend", (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+
+    const dx = endX - startX;
+    const dy = endY - startY;
+
+    // Ignore very small swipes
+    if (Math.abs(dx) < 20 && Math.abs(dy) < 20) return;
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 0) {
+            setDirection("RIGHT");
+        } else {
+            setDirection("LEFT");
+        }
+    } else {
+        if (dy > 0) {
+            setDirection("DOWN");
+        } else {
+            setDirection("UP");
+        }
+    }
+}, { passive: true }); body {
+    touch-action: none;
+}
+
+canvas {
+    touch-action: none;
+}
